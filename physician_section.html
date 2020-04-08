@@ -419,7 +419,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_eye_sum').val($('#physician_section_eye_fac').val() * $('#physician_section_eye_int').val()*0.5);
                 eye_fac = isNaN(parseInt($('#physician_section_eye_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_eye_fac').find(":selected").text())
                 eye_int = isNaN(parseInt($('#physician_section_eye_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_eye_int').find(":selected").text())
-                x = eye_fac + eye_int
+                x = eye_fac * eye_int * 0.5
                 add_view("physician_section_eye_sum",x)
                 fm_total();
             });     
@@ -429,7 +429,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_mouth_sum').val($('#physician_section_mouth_fac').val() * $('#physician_section_mouth_int').val()*0.5);
                 mouth_fac = isNaN(parseInt($('#physician_section_mouth_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_mouth_fac').find(":selected").text())
                 mouth_int = isNaN(parseInt($('#physician_section_mouth_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_mouth_int').find(":selected").text())
-                x = mouth_fac + mouth_int
+                x = mouth_fac * mouth_int * 0.5
                 add_view("physician_section_mouth_sum",x)
                 fm_total();
             });    
@@ -439,7 +439,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_eat_sum').val($('#physician_section_eat_fac').val() * $('#physician_section_eat_int').val());
                 eat_fac = isNaN(parseInt($('#physician_section_eat_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_eat_fac').find(":selected").text())
                 eat_int = isNaN(parseInt($('#physician_section_eat_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_eat_int').find(":selected").text())
-                x = eat_fac + eat_int
+                x = eat_fac * eat_int
                 add_view("physician_section_eat_sum",x)
                 fm_total();
             });    
@@ -449,7 +449,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_neck_sum').val($('#physician_section_neck_fac').val() * $('#physician_section_neck_int').val()*0.5);
                 neck_fac = isNaN(parseInt($('#physician_section_neck_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_neck_fac').find(":selected").text())
                 neck_int = isNaN(parseInt($('#physician_section_neck_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_neck_int').find(":selected").text())
-                x = neck_fac + neck_int
+                x = neck_fac * neck_int * 0.5
                 add_view("physician_section_neck_sum",x)
                 fm_total();
             });    
@@ -459,7 +459,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_rhand_sum').val($('#physician_section_rhand_fac').val() * $('#physician_section_rhand_int').val());
                 rhand_fac = isNaN(parseInt($('#physician_section_rhand_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_rhand_fac').find(":selected").text())
                 rhand_int = isNaN(parseInt($('#physician_section_rhand_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_rhand_int').find(":selected").text())
-                x = rhand_fac + rhand_int
+                x = rhand_fac * rhand_int
                 add_view("physician_section_rhand_sum",x)
                 fm_total();
             });    
@@ -469,7 +469,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_lhand_sum').val($('#physician_section_lhand_fac').val() * $('#physician_section_lhand_int').val());
                 lhand_fac = isNaN(parseInt($('#physician_section_lhand_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_lhand_fac').find(":selected").text())
                 lhand_int = isNaN(parseInt($('#physician_section_lhand_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_lhand_int').find(":selected").text())
-                x = lhand_fac + lhand_int
+                x = lhand_fac * lhand_int
                 add_view("physician_section_lhand_sum",x)
                 fm_total();
             });                
@@ -479,7 +479,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_body_sum').val($('#physician_section_body_fac').val() * $('#physician_section_body_int').val());
                 body_fac = isNaN(parseInt($('#physician_section_body_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_body_fac').find(":selected").text())
                 body_int = isNaN(parseInt($('#physician_section_body_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_body_int').find(":selected").text())
-                x = body_fac + body_int
+                x = body_fac * body_int
                 add_view("physician_section_body_sum",x)
                 fm_total();
             });                
@@ -489,7 +489,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_rleg_sum').val($('#physician_section_rleg_fac').val() * $('#physician_section_rleg_int').val());
                 rleg_fac = isNaN(parseInt($('#physician_section_rleg_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_rleg_fac').find(":selected").text())
                 rleg_int = isNaN(parseInt($('#physician_section_rleg_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_rleg_int').find(":selected").text())
-                x = rleg_fac + rleg_int
+                x = rleg_fac * rleg_int
                 add_view("physician_section_rleg_sum",x)
                 fm_total();
             });                
@@ -499,7 +499,7 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_lleg_sum').val($('#physician_section_lleg_fac').val() * $('#physician_section_lleg_int').val());
                 lleg_fac = isNaN(parseInt($('#physician_section_lleg_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_lleg_fac').find(":selected").text())
                 lleg_int = isNaN(parseInt($('#physician_section_lleg_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_lleg_int').find(":selected").text())
-                x = lleg_fac + lleg_int
+                x = lleg_fac * lleg_int
                 add_view("physician_section_lleg_sum",x)
                 fm_total();
             }); 
