@@ -131,6 +131,7 @@
 <script type="text/javascript"></script>
 
 <script>
+
 function add_view(id,value){
 document.getElementById(id).removeAttribute("readonly");
 document.getElementById(id).value = value;
@@ -389,6 +390,7 @@ document.getElementById(id).readOnly = true;
                 // $('#physician_section_moca_total').val(moca_1+moca_2+moca_3+moca_4+moca_5+moca_6+moca_7+moca_8+moca_9+moca_10)
                 x = moca_1+moca_2+moca_3+moca_4+moca_5+moca_6+moca_7+moca_8+moca_9+moca_10
                 add_view("physician_section_moca_total",x)
+
             });    
 
 
@@ -408,7 +410,9 @@ document.getElementById(id).readOnly = true;
                 rdist = isNaN(parseInt($('#physician_section_rdist').find(":selected").text())) ? 0 : parseInt($('#physician_section_rdist').find(":selected").text())
                 ldist = isNaN(parseInt($('#physician_section_ldist').find(":selected").text())) ? 0 : parseInt($('#physician_section_ldist').find(":selected").text())
                 body = isNaN(parseInt($('#physician_section_body').find(":selected").text())) ? 0 : parseInt($('#physician_section_body').find(":selected").text())
-                $('#physician_section_global_total').val(eye_top_face+bottom_face+tongue+larynx+neck+rshoulder+lshoulder+relbow+lelbow+rplc+lplc+rdist+ldist+body)
+                // $('#physician_section_global_total').val(eye_top_face+bottom_face+tongue+larynx+neck+rshoulder+lshoulder+relbow+lelbow+rplc+lplc+rdist+ldist+body)
+                x = eye_top_face+bottom_face+tongue+larynx+neck+rshoulder+lshoulder+relbow+lelbow+rplc+lplc+rdist+ldist+body
+                add_view("physician_section_global_total",x)
             });     
 
             $('#physician_section_eye_fac').add('#physician_section_eye_int').change(function(){                
@@ -479,11 +483,6 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_fm_total').val($('#physician_section_eye_sum').val() + $('#physician_section_mouth_sum').val() + $('#physician_section_eat_sum').val() + $('#physician_section_neck_sum').val()+ $('#physician_section_rhand_sum').val()+ $('#physician_section_lhand_sum').val()+$('#physician_section_body_sum').val()+$('#physician_section_rleg_sum').val()+$('#physician_section_lleg_sum').val());
                 $('#physician_section_fm_total').val(eye_sum+mouth_sum+eat_sum+neck_sum+rhand_sum+lhand_sum+body_sum+rleg_sum+lleg_sum)
             }
-
-
-
-
-            
 
 
             </script>                    
