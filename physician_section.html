@@ -419,7 +419,8 @@ document.getElementById(id).readOnly = true;
                 $('#physician_section_eye_sum').val($('#physician_section_eye_fac').val() * $('#physician_section_eye_int').val()*0.5);
                 eye_fac = isNaN(parseInt($('#physician_section_eye_fac').find(":selected").text())) ? 0 : parseInt($('#physician_section_eye_fac').find(":selected").text())
                 eye_int = isNaN(parseInt($('#physician_section_eye_int').find(":selected").text())) ? 0 : parseInt($('#physician_section_eye_int').find(":selected").text())
-                x = eye_fac * eye_int * 0.5
+                x = $('#physician_section_eye_sum').val()
+                // x = eye_fac * eye_int * 0.5
                 add_view("physician_section_eye_sum",x)
                 fm_total();
             });     
