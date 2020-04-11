@@ -95,7 +95,6 @@ def physician_section():
     return locals()        
 
 
-
 @auth.requires_login()
 def lab_section():
     if permit('lab'):
@@ -119,6 +118,29 @@ def lab_section():
     return locals()
 
 
+
+@auth.requires_login()
+def genes_table():
+    if permit('genes'):
+        editable = True
+    else:
+        editable = False
+    msg = None    
+    tbl = db.genes_table
+    record = db(tbl.reception_id==request.args(0)).select().first()
+    tbl.id.readable = False
+    form = SQLFORM(tbl,record)
+    form.vars.reception_id = request.args(0)
+    if editable:        
+        if form.process().accepted:
+            #response.flash("Success") 
+            msg = 'success'
+            redirect(URL("default", "index"))
+        elif form.errors: 
+            msg = form.errors 
+            #response.flash("Error")    
+    return locals() 
+
 @auth.requires_login()
 def output():
     from os import path
@@ -131,6 +153,8 @@ def output():
         (db.principal_info,1),
         (db.reception_section,2),
         (db.physician_section,2),
+        (db.lab_section,2),
+        (db.genes_table,2),
         ]
 
     field_name = [t[0].fields[t[1]:] for t in tables]    
