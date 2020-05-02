@@ -174,14 +174,14 @@ yes_no_distonia = ["","بلی","خیر","تغییر شغل به علت دیست�
 visit_times = ["","اول","دوم و بعدتر"]
 off_on = ["","Off","On"]
 after_before = ["","قبل از 6 عصر","بعد از 6 عصر"]
-yes_no_unknown = ["","بلی","خیر","نامشخص"]
-suffering_nums = [""] + ["نامشخص"] +[i for i in range(10)]
+yes_no_unknown = ["نامشخص","خیر","بلی"]
+suffering_nums = ["نامشخص"] +[i for i in range(10)]
 distonia_distribution = ["","فوکال","همی دیستونی چپ","همی دیستونی راست","ژنرالیزه","مولتی فوکال","سگمنتال"]
 distonia_activities = ["","کرامپ نویسندگان","کرامپ ورزشکاران","کرامپ تایپیست","کرامپ نوازندگان","دیستونی تکلم","سایر"]
 disorder_mood = ["ندارد","ADHD","اختلالات اضطرابی","افسردگی","دوقطبی","drug abuse","اختلالات وسواسی جبر ی","اختلال پانیک","سایر","نامشخص"]
-tremor_type = ["Regular", "Irregular/jerky"]
+tremor_type = ["ندارد"] + ["Regular","Irregular/jerky"]
 non_distonia = ["میوکلونوس","کره", "پارکینسونیسم" , "سایر"]
-best_disgnosis = ["primary dystonia", "combined disnonia", "نامشخص"]
+best_disgnosis = ["نامشخص", "combined disnonia", "primary dystonia"]
 global_dist = [i for i in range(11)]
 blood_type = ["","EDTA","Heparin","سایر"]
 
@@ -235,7 +235,7 @@ db.define_table("reception_section",
     Field("insurance_type", "string",label="نوع بیمه"),
     Field("education", requires=IS_IN_SET(edu_list, zero=None),label="تعداد سالهای تحصیل رسمی"),
     Field("career", "string",label="شغل"),
-    Field("pedigree_file", "upload",label="بارگزاری تصویر شجره ",
+    Field("pedigree_file", "upload",label="بارگذاری تصویر شجره ",
           uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True
           ), 
     migrate = False,)
@@ -352,27 +352,35 @@ db.define_table("physician_section",
 
 
     Field("sensory_trick", requires=IS_IN_SET(yes_no_unknown, zero=None),label="sensory trick:وجود دارد"),   
+    Field("sensory_trick_explanation", "text",label="sensory trick explanation"),   
 
     # Paraclinic Actions Title
     # Add fields for uploading files
     Field("mri", requires=IS_IN_SET(just_yes_no, zero=None),label="MRI"), 
     Field("dscr_mri", "string",label="MRI نتایج"), 
-    Field("mri_pic_path", "string",label="مسیر عکس ها"), 
+    # Field("mri_pic_path", "string",label="مسیر عکس ها"), 
+    Field("mri_pic_file", "upload",label="بارگذاری تصویر ام آر آی ",
+          uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),
 
     Field("ct_scan", requires=IS_IN_SET(just_yes_no, zero=None),label="CT Scan"), 
-    Field("dscr_ct_scan", "string",label="CT Scan نتایج"), 
-    Field("ct_scan_pic_path", "string",label="مسیر عکس ها"), 
+    Field("dscr_ct_scan", "text",label="CT Scan نتایج"), 
+    # Field("ct_scan_pic_path", "string",label="مسیر عکس ها"), 
+    Field("ct_scan_pic_file", "upload",label="بارگذاری تصویر سی تی اسکن ",
+          uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),    
     
     Field("tests", requires=IS_IN_SET(just_yes_no, zero=None),label="آزمایش‌ها"),
     Field("dscr_tests", "string",label="نتایج آزمایش‌ها"), 
-    Field("tests_pic_path", "string",label="مسیر عکس ها"), 
+    # Field("tests_pic_path", "string",label="مسیر عکس ها"), 
+    Field("tests_pic_file", "upload",label="بارگذاری تصویر آزمایش‌ها ",
+          uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),    
+
 
     Field("refer", requires=IS_IN_SET(just_yes_no, zero=None),label="مشاوره یا ارجاع"),  
-    Field("dscr_refer", "string",label="نتایج مشاوره یا ارجاع"), 
+    Field("dscr_refer", "text",label="نتایج مشاوره یا ارجاع"), 
     
 
     Field("other_fs", requires=IS_IN_SET(just_yes_no, zero=None),label="سایر"),  
-    Field("dscr_others", "string",label="نتایج سایر"), 
+    Field("dscr_others", "text",label="نتایج سایر"), 
 
     
 
@@ -440,9 +448,12 @@ db.define_table("physician_section",
     Field("moca_10", requires=IS_IN_SET(moca10, zero=None),label="مونترال 10."),
 
     Field("moca_total", 'integer',label="مونترال جمع امتیاز."),  
-    Field("moca_image", "upload",label="بارگزاری تصویر تست ",
-            uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True
+    Field("moca_image", "upload",label="بارگذاری تصویر تست ",
+            uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True, 
           ), 
+    Field("film_upload", "upload",label="بارگذاری فایل زیپ شده‌ی فیلم‌ها ",
+            uploadfolder='C:/Web2Py/applications/dystonia/static/films',uploadseparate=True, 
+          ),           
     
     Field("fill_by", 'string',label="تکمیل کننده"),  
 
