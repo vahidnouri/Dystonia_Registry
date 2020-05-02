@@ -57,7 +57,7 @@
             </h3>
         </div>
     
-        {{for f in form.fields[81:106]:}}
+        {{for f in form.fields[81:107]:}}
             <div class="row mb-2">
                 <div class="col-md-3" style="text-align:right">
                     {{=form.custom.label[f]}}
@@ -71,11 +71,11 @@
         
         <div class="row justify-content-center">
             <h3>
-                FM
+                مقیاس برک - فان - مارسدن
             </h3>
         </div>
     
-        {{for f in form.fields[106:134]:}}
+        {{for f in form.fields[107:135]:}}
             <div class="row mb-2">
                 <div class="col-md-3" style="text-align:right">
                     {{=form.custom.label[f]}}
@@ -92,7 +92,7 @@
             </h3>
         </div>
     
-        {{for f in form.fields[134:144]:}}
+        {{for f in form.fields[135:145]:}}
             <div class="row mb-2">
                 <div class="col-md-3" style="text-align:right">
                     {{=form.custom.label[f]}}
@@ -110,7 +110,7 @@
             </h3>
         </div>
     
-        {{for f in form.fields[144:]:}}
+        {{for f in form.fields[145:]:}}
             <div class="row mb-2">
                 <div class="col-md-3" style="text-align:right">
                     {{=form.custom.label[f]}}
@@ -287,64 +287,126 @@ document.getElementById(id).readOnly = true;
             }         
             });  
 
+//  Primary Dystonia
+
+if($('#physician_section_best_distonia_diag').prop('value') == 'primary dystonia'){                  
+                $('#physician_section_ns_pd').show();   
+                $('#physician_section_cervical_dystonia').show();   
+                $('#physician_section_blepharospasm').show();   
+                $('#physician_section_lingual').show();   
+                $('#physician_section_U_l_f').show();   
+                $('#physician_section_abductor').show();   
+                $('#physician_section_adductor').show();
+                $('#physician_section_mixed').show();
+                $('#physician_section_l_e').show();   
+                $('#physician_section_u_e').show();   
+                $('#physician_section_generalized').show();    
+
+                }                         
+       else{
+
+                $('#physician_section_ns_pd').hide();   
+                $('#physician_section_cervical_dystonia').hide();   
+                $('#physician_section_blepharospasm').hide();   
+                $('#physician_section_lingual').hide();   
+                $('#physician_section_U_l_f').hide();   
+                $('#physician_section_abductor').hide();   
+                $('#physician_section_adductor').hide();
+                $('#physician_section_mixed').hide();
+                $('#physician_section_l_e').hide();   
+                $('#physician_section_u_e').hide();   
+                $('#physician_section_generalized').hide();    
+
+            }                         
+       $('#physician_section_best_distonia_diag').change(function(){
+            if($('#physician_section_best_distonia_diag').prop('value') == 'primary dystonia'){
+                $('#physician_section_ns_pd').show();   
+                $('#physician_section_cervical_dystonia').show();   
+                $('#physician_section_blepharospasm').show();   
+                $('#physician_section_lingual').show();   
+                $('#physician_section_U_l_f').show();   
+                $('#physician_section_abductor').show();   
+                $('#physician_section_adductor').show();
+                $('#physician_section_mixed').show();
+                $('#physician_section_l_e').show();   
+                $('#physician_section_u_e').show();   
+                $('#physician_section_generalized').show();      
+            }      
+            else {
+                $('#physician_section_ns_pd').hide();   
+                $('#physician_section_cervical_dystonia').hide();   
+                $('#physician_section_blepharospasm').hide();   
+                $('#physician_section_lingual').hide();   
+                $('#physician_section_U_l_f').hide();   
+                $('#physician_section_abductor').hide();   
+                $('#physician_section_adductor').hide();
+                $('#physician_section_mixed').hide();
+                $('#physician_section_l_e').hide();   
+                $('#physician_section_u_e').hide();   
+                $('#physician_section_generalized').hide(); 
+            }         
+            });  
+
+
+
 // Paraclinics
 
                 if($('#physician_section_mri').prop('value') == 'بلی'){
                      $('#physician_section_dscr_mri').show();   
-                     $('#physician_section_mri_pic_path').show();          
+                     $('#physician_section_mri_pic_file').show();          
                 }      
             
               else {
                     $('#physician_section_dscr_mri').hide();    
-                    $('#physician_section_mri_pic_path').hide();                           
+                    $('#physician_section_mri_pic_file').hide();                           
               }
              $('#physician_section_mri').change(function(){
                      if($('#physician_section_mri').prop('value') == 'بلی'){
                          $('#physician_section_dscr_mri').show();      
-                         $('#physician_section_mri_pic_path').show();    
+                         $('#physician_section_mri_pic_file').show();    
                      }      
                     else {
                         $('#physician_section_dscr_mri').hide();  
-                        $('#physician_section_mri_pic_path').hide();          
+                        $('#physician_section_mri_pic_file').hide();          
                     }
             });  
 
             if($('#physician_section_ct_scan').prop('value') == 'بلی'){
                      $('#physician_section_dscr_ct_scan').show();     
-                     $('#physician_section_ct_scan_pic_path').show();  
+                     $('#physician_section_ct_scan_pic_file').show();  
             }          
             
               else {
                     $('#physician_section_dscr_ct_scan').hide();      
-                    $('#physician_section_ct_scan_pic_path').hide();                        
+                    $('#physician_section_ct_scan_pic_file').hide();                        
               }
              $('#physician_section_ct_scan').change(function(){
                      if($('#physician_section_ct_scan').prop('value') == 'بلی'){
                          $('#physician_section_dscr_ct_scan').show();            
-                         $('#physician_section_ct_scan_pic_path').show(); 
+                         $('#physician_section_ct_scan_pic_file').show(); 
                      } 
                      else {
                         $('#physician_section_dscr_ct_scan').hide();            
-                        $('#physician_section_ct_scan_pic_path').hide(); 
+                        $('#physician_section_ct_scan_pic_file').hide(); 
                      }
             });  
 
             if($('#physician_section_tests').prop('value') == 'بلی'){
                      $('#physician_section_dscr_tests').show();                
-                     $('#physician_section_tests_pic_path').show();      
+                     $('#physician_section_tests_pic_file').show();      
             }          
             else{ 
                     $('#physician_section_dscr_tests').hide();       
-                    $('#physician_section_tests_pic_path').hide();                        
+                    $('#physician_section_tests_pic_file').hide();                        
             }
              $('#physician_section_tests').change(function(){
                      if($('#physician_section_tests').prop('value') == 'بلی'){
                          $('#physician_section_dscr_tests').show();    
-                         $('#physician_section_tests_pic_path').show();           
+                         $('#physician_section_tests_pic_file').show();           
                      } 
                     else {
                         $('#physician_section_dscr_tests').hide();            
-                        $('#physician_section_tests_pic_path').hide();    
+                        $('#physician_section_tests_pic_file').hide();    
                     }
             });  
 
@@ -371,6 +433,20 @@ document.getElementById(id).readOnly = true;
                     else 
                         $('#physician_section_dscr_others').hide();            
             }); 
+
+
+            if($('#physician_section_sensory_trick').prop('value') == 'بلی')
+                     $('#physician_section_sensory_trick_explanation').show();                
+            
+              else 
+                    $('#physician_section_sensory_trick_explanation').hide();                             
+             $('#physician_section_sensory_trick').change(function(){
+                     if($('#physician_section_sensory_trick').prop('value') == 'بلی')
+                         $('#physician_section_sensory_trick_explanation').show();            
+                    else 
+                        $('#physician_section_sensory_trick_explanation').hide();            
+            }); 
+
 
 
 
