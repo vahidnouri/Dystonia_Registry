@@ -41,6 +41,8 @@
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         {{if auth.user:}}
+        <a class="dropdown-item" href="{{=URL('default','index')}}">{{=T('Home')}}</a>
+        <a class="dropdown-item" href="{{=URL('default','user/change_password')}}">{{=T('Change Password')}}</a>
         <a class="dropdown-item" href="{{=URL('default','user/logout')}}">{{=T('Logout')}}</a>
         {{else:}}
         <a class="dropdown-item" href="{{=URL('default','user/login')}}">{{=T('Login')}}</a>
