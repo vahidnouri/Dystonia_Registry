@@ -217,6 +217,7 @@ db.define_table("principal_info",
     #migrate = False,
     fake_migrate=True,
     )
+db.principal_info.reception_id.requires=IS_NOT_IN_DB(db,'principal_info.reception_id')
 # -----------------------Reception Section ------------------------------
 
 db.define_table("reception_section", 
