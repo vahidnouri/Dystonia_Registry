@@ -6,6 +6,13 @@
 # -------------------------------------------------------------------------
 from gluon.contrib.appconfig import AppConfig
 from gluon.tools import Auth
+# import jdatetime
+# import django-jalali-date  
+# from django import forms
+# from jalali_date.fields import JalaliDateField, SplitJalaliDateTimeField
+# from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
+
+
 
 # -------------------------------------------------------------------------
 # This scaffolding model makes your app work on Google App Engine too
@@ -171,7 +178,7 @@ yes_no = ["","بلی","خیر"]
 just_yes_no = ["خیر","بلی"]
 just_2_yes_no = ["بلی","خیر"]
 yes_no_distonia = ["","بلی","خیر","تغییر شغل به علت دیستونی"]
-visit_times = ["","اول","دوم و بعدتر"]
+visit_numbers = ["","اول","دوم و بعدتر"]
 off_on = ["","Off","On"]
 after_before = ["","قبل از 6 عصر","بعد از 6 عصر"]
 yes_no_unknown = ["نامشخص","خیر","بلی"]
@@ -184,6 +191,7 @@ non_distonia = ["میوکلونوس","کره", "پارکینسونیسم" , "س�
 best_disgnosis = ["نامشخص", "combined disnonia", "primary dystonia"]
 global_dist = [i for i in range(11)]
 blood_type = ["","EDTA","Heparin","سایر"]
+theraputic_interventions = ["","آنتی کولینرژیک","بوتولینوم توکسین", "وودوپا",'تحریک عمقی مغزی',"شل کننده عضلانی", "سایر"]
 
 
 
@@ -192,10 +200,7 @@ blood_type = ["","EDTA","Heparin","سایر"]
 gait = [""] +[i for i in range(5)]  
 hoehn = [""] +[i for i in range(6)]
 
-moca1 = ["","0","1","2","3","4","5"]
-moca3 = ["","0","1","2"]
-moca4 = ["","0","1"]
-moca10 = ["","0","1","2","3","4","5","6"]
+
 bai = ["","0","1","2","3"]
 mschwab = ["","0","10","20","30","40","50","60","70","80","90","100"]
 edu_list = ["","بی سواد","ابتدایی","سیکل","دیپلم","فوق دیپلم","لیسانس","فوق لیسانس و بالاتر"]
@@ -208,28 +213,35 @@ for i in range(1,101):
 
 ########## Lab Table
 
-
+# jdatetime.set_locale('fa_IR')
 
 
 db.define_table("principal_info",
     Field("f_name", "string",label="نام و نام خانوادگی"),
-    Field("reception_id", "string",label="کد پذیرش", required=True),
-    #migrate = False,
+    Field("reception_id", "string",label="کد ملی", required=True),  
+
+    #migrate = False,    
     fake_migrate=True,
     )
-db.principal_info.reception_id.requires=IS_NOT_IN_DB(db,'principal_info.reception_id')
 # -----------------------Reception Section ------------------------------
-
+db.principal_info.reception_id.requires=IS_NOT_IN_DB(db,'principal_info.reception_id')
 db.define_table("reception_section", 
 #    Field("f_name", "string",label="نام و نام خانوادگی"),
     Field("reception_id", "string",label="کد پذیرش", writable=False, readable = False),
     Field("gender", requires=IS_IN_SET(genders, zero=None),label="جنسیت"),
-    Field("birth_date_day", "string",label="روز تولد"),
-    Field("birth_date_month", "string",label="ماه تولد"),
-    Field("birth_date_year", "string",label="سال تولد"),
+
+    # Field("birth_date_day", format = jdatetime.datetime.now().strftime('%A %B'),label="تاریخ تولد"),
+    # Field("birth_date_day", "string",label="روز تولد"),
+    # Field("birth_date_month", "string",label="ماه تولد"),
+    # Field("birth_date_year", "string",label="سال تولد"),
+    Field("birth_date_date", "date",label="تاریخ تولد"),
+    # Field("visit_date_day", "string",label="روز ویزیت"),
+    # Field("visit_date_month", "string",label="ماه ویزیت"),
+    # Field("visit_date_year", "string",label="سال ویزیت"),    
+    Field("visit_date", "date",label="تاریخ ویزیت"),    
     Field("id_code", "string",label="کد ملی"),
-    Field("tel", "string",label="تلفن"),
-    Field("mobile", "string",label="تلفن همراه"),
+    Field("tel", "string",label=" تلفن ثابت"),
+    Field("mobile", "string",label="شماره موبایل"),
     Field("city", "string",label="شهر"),
     Field("address", "text",label="محل سکونت"),
     Field("e_mail", "string",label="ایمیل"),
@@ -249,8 +261,8 @@ db.define_table("physician_section",
 
     Field("change_work", requires=IS_IN_SET(yes_no_distonia, zero=None),label="?از کار افتادگی به علت دیستونی"),
     Field("working", requires=IS_IN_SET(yes_no, zero=None),label="?بیمار هم اکنون مشغول به کار است"),
-    Field("income", "string",label="درآمد متوسط ماهیانه"),
-    Field("visit_times", "string",label="نوبت ویزیت"),
+    Field("income", "string",label=" درآمد متوسط ماهیانه به تومان"),
+    Field("visit_times", requires=IS_IN_SET(visit_numbers, zero=None),label="نوبت ویزیت"),
     Field("distonia_family_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه دیستونی در خانواده"),   
     Field("mother", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" مادر مبتلا"),   
     Field("father", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" پدر مبتلا"),   
@@ -265,15 +277,17 @@ db.define_table("physician_section",
     Field("suffering_son_nums", requires=IS_IN_SET(suffering_nums, zero=None),label=" تعداد پسر مبتلا"),   
     Field("family_tremor_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه ترمور در خانواده"),   
     Field("family_myoclonus_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه میوکلونوس در خانواده"),   
-    Field("family_parkinson_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه پارکینسون در خانواده"),   
+    Field("family_parkinson_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه پارکینسون یا پارکینسونیسم در خانواده"),   
     Field("family_others_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه سایر بیماریها در خانواده"),   
     Field("disease_type", "string",label="نوع بیماری"),
-    Field("sickness_start_day", "string",label="روز شروع علائم"),
-    Field("sickness_start_month", "string",label="ماه شروع علائم"),
-    Field("sickness_start_year", "string",label="سال شروع علائم"),
-    Field("diagnostic_day", "string",label="روز تشخیص بیماری"),
-    Field("diagnostic_month", "string",label="ماه تشخیص بیماری"),
-    Field("diagnostic_year", "string",label="سال تشخیص بیماری"),
+    # Field("sickness_start_day", "string",label="روز شروع علائم"),
+    # Field("sickness_start_month", "string",label="ماه شروع علائم"),
+    # Field("sickness_start_year", "string",label="سال شروع علائم"),
+    Field("sickness_start_date", "date",label="تاریخ شروع علائم"),
+    # Field("diagnostic_day", "string",label="روز تشخیص بیماری"),
+    # Field("diagnostic_month", "string",label="ماه تشخیص بیماری"),
+    # Field("diagnostic_year", "string",label="سال تشخیص بیماری"),
+    Field("diagnostic_date", "date",label="تاریخ تشخیص بیماری"),
     Field("distonia_dist", requires=IS_IN_SET(distonia_distribution, zero=None),label=" توزیع فعلی دیستونی"),   
     Field("task_specific", requires=IS_IN_SET(yes_no, zero=None),label=" task specific distonia"),   
     Field("dist_activities", requires=IS_IN_SET(distonia_activities, zero=None),label=" نوع فعالیت منجر به دیستونی"),   
@@ -292,7 +306,7 @@ db.define_table("physician_section",
     Field("lhand", requires=IS_IN_SET(just_yes_no, zero=None),label="Left hand"),   
     Field("rhand", requires=IS_IN_SET(just_yes_no, zero=None),label="Right hand"),   
     Field("luarm", requires=IS_IN_SET(just_yes_no, zero=None),label="Left upper arm"),   
-    Field("ruarm", requires=IS_IN_SET(just_yes_no, zero=None),label="Right upper foot"),   
+    Field("ruarm", requires=IS_IN_SET(just_yes_no, zero=None),label="Right upper arm"),   
     Field("lshoulder", requires=IS_IN_SET(just_yes_no, zero=None),label="Left shoulder"),   
     Field("rshoulder", requires=IS_IN_SET(just_yes_no, zero=None),label="Right shoulder"),   
     Field("luface", requires=IS_IN_SET(just_yes_no, zero=None),label="Left upper face"),   
@@ -358,7 +372,7 @@ db.define_table("physician_section",
     # Paraclinic Actions Title
     # Add fields for uploading files
     Field("mri", requires=IS_IN_SET(just_yes_no, zero=None),label="MRI"), 
-    Field("dscr_mri", "string",label="MRI نتایج"), 
+    Field("dscr_mri", "text",label="MRI نتایج"), 
     # Field("mri_pic_path", "string",label="مسیر عکس ها"), 
     Field("mri_pic_file", "upload",label="بارگذاری تصویر ام آر آی ",
           uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),
@@ -370,7 +384,7 @@ db.define_table("physician_section",
           uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),    
     
     Field("tests", requires=IS_IN_SET(just_yes_no, zero=None),label="آزمایش‌ها"),
-    Field("dscr_tests", "string",label="نتایج آزمایش‌ها"), 
+    Field("dscr_tests", "text",label="نتایج آزمایش‌ها"), 
     # Field("tests_pic_path", "string",label="مسیر عکس ها"), 
     Field("tests_pic_file", "upload",label="بارگذاری تصویر آزمایش‌ها ",
           uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),    
@@ -378,13 +392,19 @@ db.define_table("physician_section",
 
     Field("refer", requires=IS_IN_SET(just_yes_no, zero=None),label="مشاوره یا ارجاع"),  
     Field("dscr_refer", "text",label="نتایج مشاوره یا ارجاع"), 
+    Field("councelling_pic_file", "upload",label="بارگذاری تصویر مشاوره ",
+          uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True),  
     
 
     Field("other_fs", requires=IS_IN_SET(just_yes_no, zero=None),label="سایر"),  
     Field("dscr_others", "text",label="نتایج سایر"), 
 
-    
 
+    Field("theraputic_intervention_1", requires=IS_IN_SET(theraputic_interventions, zero=None),label="اقدامات درمانی 1"), 
+    Field("theraputic_int_1_others", "string",label="نام دارو"),
+    Field("theraputic_intervention_2", requires=IS_IN_SET(theraputic_interventions, zero=None),label="اقدامات درمانی 2"), 
+    Field("theraputic_int_2_others", "string",label="نام دارو"),
+    
 
 
     # FM  نتیجه بررسی معیار فان- مارسدن 
@@ -393,7 +413,7 @@ db.define_table("physician_section",
     Field("eye_int", "string",label="چشم شدت"), 
     Field("eye_sum", "string",label="حاصل"), 
     Field("mouth_fac", "string",label="دهان فاکتور ایجاد کننده"), 
-    Field("mouth_int", "string",label="دهان شدن"), 
+    Field("mouth_int", "string",label="دهان شدت"), 
     Field("mouth_sum", "string",label="حاصل"), 
     Field("eat_fac", "string",label="بلع فاکتور ایجاد کننده"), 
     Field("eat_int", "string",label="بلع شدت"), 
@@ -423,11 +443,11 @@ db.define_table("physician_section",
 
     Field("eye_top_face", requires=IS_IN_SET(global_dist, zero=None),label="چشم و بالای صورت"), 
     Field("bottom_face", requires=IS_IN_SET(global_dist, zero=None),label="پایین صورت"), 
-    Field("tongue", requires=IS_IN_SET(global_dist, zero=None),label="فک و زبان"), 
-    Field("larynx", requires=IS_IN_SET(global_dist, zero=None),label="حنجره"), 
-    Field("neck", requires=IS_IN_SET(global_dist, zero=None),label="گردن"), 
-    Field("rshoulder", requires=IS_IN_SET(global_dist, zero=None),label="شانه و پروگزیمال بازو راست"), 
-    Field("lshoulder", requires=IS_IN_SET(global_dist, zero=None),label="شانه و پروگزیمال بازو چپ"), 
+    Field("g_tongue", requires=IS_IN_SET(global_dist, zero=None),label="فک و زبان"), 
+    Field("g_larynx", requires=IS_IN_SET(global_dist, zero=None),label="حنجره"), 
+    Field("g_neck", requires=IS_IN_SET(global_dist, zero=None),label="گردن"), 
+    Field("g_rshoulder", requires=IS_IN_SET(global_dist, zero=None),label="شانه و پروگزیمال بازو راست"), 
+    Field("g_lshoulder", requires=IS_IN_SET(global_dist, zero=None),label="شانه و پروگزیمال بازو چپ"), 
     Field("relbow", requires=IS_IN_SET(global_dist, zero=None),label="دیستال بازو، دست و آرنج راست"), 
     Field("lelbow", requires=IS_IN_SET(global_dist, zero=None),label="دیستال بازو، دست و آرنج چپ"), 
     Field("rplc", requires=IS_IN_SET(global_dist, zero=None),label="پلویس و پروگزیمال پای راست"), 
@@ -437,28 +457,11 @@ db.define_table("physician_section",
     Field("body", requires=IS_IN_SET(global_dist, zero=None),label="تنه"), 
     Field("global_total", "string",label="مجموع نمره"),
 
-    Field("moca_1", requires=IS_IN_SET(moca1, zero=None),label="مونترال 1."),
-    Field("moca_2", requires=IS_IN_SET(bai, zero=None),label="مونترال 2."),
-    Field("moca_3", requires=IS_IN_SET(moca3, zero=None),label="مونترال 3."),
-    Field("moca_4", requires=IS_IN_SET(moca4, zero=None),label="مونترال 4."),
-    Field("moca_5", requires=IS_IN_SET(bai, zero=None),label="مونترال 5."),
-    Field("moca_6", requires=IS_IN_SET(moca3, zero=None),label="مونترال 6."),
-    Field("moca_7", requires=IS_IN_SET(moca4, zero=None),label="مونترال 7."),
-    Field("moca_8", requires=IS_IN_SET(moca3, zero=None),label="مونترال 8."),
-    Field("moca_9", requires=IS_IN_SET(moca1, zero=None),label="مونترال 9."),
-    Field("moca_10", requires=IS_IN_SET(moca10, zero=None),label="مونترال 10."),
-
-    Field("moca_total", 'integer',label="مونترال جمع امتیاز."),  
-    Field("moca_image", "upload",label="بارگذاری تصویر تست ",
-            uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True, 
-          ), 
     Field("film_upload", "upload",label="بارگذاری فایل زیپ شده‌ی فیلم‌ها ",
             uploadfolder='C:/Web2Py/applications/dystonia/static/films',uploadseparate=True, 
           ),           
     
     Field("fill_by", 'string',label="تکمیل کننده"),  
-
-
 
     migrate = False,
     
