@@ -6,13 +6,6 @@
 # -------------------------------------------------------------------------
 from gluon.contrib.appconfig import AppConfig
 from gluon.tools import Auth
-# import jdatetime
-# import django-jalali-date  
-# from django import forms
-# from jalali_date.fields import JalaliDateField, SplitJalaliDateTimeField
-# from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
-
-
 
 # -------------------------------------------------------------------------
 # This scaffolding model makes your app work on Google App Engine too
@@ -179,8 +172,6 @@ just_yes_no = ["خیر","بلی"]
 just_2_yes_no = ["بلی","خیر"]
 yes_no_distonia = ["","بلی","خیر","تغییر شغل به علت دیستونی"]
 visit_numbers = ["","اول","دوم و بعدتر"]
-off_on = ["","Off","On"]
-after_before = ["","قبل از 6 عصر","بعد از 6 عصر"]
 yes_no_unknown = ["نامشخص","خیر","بلی"]
 suffering_nums = ["نامشخص"] +[i for i in range(10)]
 distonia_distribution = ["","فوکال","همی دیستونی چپ","همی دیستونی راست","ژنرالیزه","مولتی فوکال","سگمنتال"]
@@ -197,12 +188,15 @@ theraputic_interventions = ["","آنتی کولینرژیک","بوتولینوم
 
 #str(list(range(0,11)))
 #counsiousness = ["0","1","2","3","4","5","6","7","8","9","10"]
-gait = [""] +[i for i in range(5)]  
-hoehn = [""] +[i for i in range(6)]
 
 
-bai = ["","0","1","2","3"]
-mschwab = ["","0","10","20","30","40","50","60","70","80","90","100"]
+cdip_58 = [""] + [i for i in range(1,59)]
+bsdi_score = [""] + [i for i in range(1,7)] 
+vhi_score = [""] + [i for i in range(1,31)] 
+omdq_score =  [""] + [i for i in range(1,26)]
+wcrs_score =  [""] + [i for i in range(1,10)]
+
+
 edu_list = ["","بی سواد","ابتدایی","سیکل","دیپلم","فوق دیپلم","لیسانس","فوق لیسانس و بالاتر"]
 
 genes = []
@@ -213,14 +207,13 @@ for i in range(1,101):
 
 ########## Lab Table
 
-# jdatetime.set_locale('fa_IR')
+
 
 
 db.define_table("principal_info",
     Field("f_name", "string",label="نام و نام خانوادگی"),
-    Field("reception_id", "string",label="کد ملی", required=True),  
-
-    #migrate = False,    
+    Field("reception_id", "string",label="کد پذیرش", required=True),    
+    #migrate = False,
     fake_migrate=True,
     )
 # -----------------------Reception Section ------------------------------
@@ -229,16 +222,12 @@ db.define_table("reception_section",
 #    Field("f_name", "string",label="نام و نام خانوادگی"),
     Field("reception_id", "string",label="کد پذیرش", writable=False, readable = False),
     Field("gender", requires=IS_IN_SET(genders, zero=None),label="جنسیت"),
-
-    # Field("birth_date_day", format = jdatetime.datetime.now().strftime('%A %B'),label="تاریخ تولد"),
-    # Field("birth_date_day", "string",label="روز تولد"),
-    # Field("birth_date_month", "string",label="ماه تولد"),
-    # Field("birth_date_year", "string",label="سال تولد"),
-    Field("birth_date_date", "date",label="تاریخ تولد"),
-    # Field("visit_date_day", "string",label="روز ویزیت"),
-    # Field("visit_date_month", "string",label="ماه ویزیت"),
-    # Field("visit_date_year", "string",label="سال ویزیت"),    
-    Field("visit_date", "date",label="تاریخ ویزیت"),    
+    Field("birth_date_day", "string",label="روز تولد"),
+    Field("birth_date_month", "string",label="ماه تولد"),
+    Field("birth_date_year", "string",label="سال تولد"),
+    Field("visit_date_day", "string",label="روز ویزیت"),
+    Field("visit_date_month", "string",label="ماه ویزیت"),
+    Field("visit_date_year", "string",label="سال ویزیت"),    
     Field("id_code", "string",label="کد ملی"),
     Field("tel", "string",label=" تلفن ثابت"),
     Field("mobile", "string",label="شماره موبایل"),
@@ -280,14 +269,12 @@ db.define_table("physician_section",
     Field("family_parkinson_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه پارکینسون یا پارکینسونیسم در خانواده"),   
     Field("family_others_bkgrnd", requires=IS_IN_SET(yes_no_unknown, zero=None),label=" سابقه سایر بیماریها در خانواده"),   
     Field("disease_type", "string",label="نوع بیماری"),
-    # Field("sickness_start_day", "string",label="روز شروع علائم"),
-    # Field("sickness_start_month", "string",label="ماه شروع علائم"),
-    # Field("sickness_start_year", "string",label="سال شروع علائم"),
-    Field("sickness_start_date", "date",label="تاریخ شروع علائم"),
-    # Field("diagnostic_day", "string",label="روز تشخیص بیماری"),
-    # Field("diagnostic_month", "string",label="ماه تشخیص بیماری"),
-    # Field("diagnostic_year", "string",label="سال تشخیص بیماری"),
-    Field("diagnostic_date", "date",label="تاریخ تشخیص بیماری"),
+    Field("sickness_start_day", "string",label="روز شروع علائم"),
+    Field("sickness_start_month", "string",label="ماه شروع علائم"),
+    Field("sickness_start_year", "string",label="سال شروع علائم"),
+    Field("diagnostic_day", "string",label="روز تشخیص بیماری"),
+    Field("diagnostic_month", "string",label="ماه تشخیص بیماری"),
+    Field("diagnostic_year", "string",label="سال تشخیص بیماری"),
     Field("distonia_dist", requires=IS_IN_SET(distonia_distribution, zero=None),label=" توزیع فعلی دیستونی"),   
     Field("task_specific", requires=IS_IN_SET(yes_no, zero=None),label=" task specific distonia"),   
     Field("dist_activities", requires=IS_IN_SET(distonia_activities, zero=None),label=" نوع فعالیت منجر به دیستونی"),   
@@ -457,6 +444,16 @@ db.define_table("physician_section",
     Field("body", requires=IS_IN_SET(global_dist, zero=None),label="تنه"), 
     Field("global_total", "string",label="مجموع نمره"),
 
+    Field("mmse", "integer",label=" MMSE نمره کلی نتیجه بررسی معیار "),
+    Field("mmse_image", "upload",label="بارگذاری تصویر تست ",
+            uploadfolder='C:/Web2Py/applications/dystonia/static/images',uploadseparate=True, 
+          ), 
+    Field("cdip", requires=IS_IN_SET(cdip_58, zero=None),label=" CDIP-58 شدت دیستونی گردن بر اساس"),    
+    Field("bsdi", requires=IS_IN_SET(bsdi_score, zero=None),label=" BSDI شدت بلفارواسپاسم بر اساس"),    
+    Field("vhi", requires=IS_IN_SET(vhi_score, zero=None),label="VHI شدت دیستونی صدا بر اساس"),    
+    Field("omdq", requires=IS_IN_SET(omdq_score, zero=None),label="OMDQ شدت دیستونی اورومندیبولار بر اساس"),    
+    Field("wcrs", requires=IS_IN_SET(wcrs_score, zero=None),label="WCRS شدت کرامپ نویسندگان بر اساس"),    
+    Field("death_reason", "string",label="علت مرگ"),          
     Field("film_upload", "upload",label="بارگذاری فایل زیپ شده‌ی فیلم‌ها ",
             uploadfolder='C:/Web2Py/applications/dystonia/static/films',uploadseparate=True, 
           ),           
