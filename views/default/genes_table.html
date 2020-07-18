@@ -1,0 +1,11 @@
+{{extend 'layout.html'}}
+
+{{if msg==None:}}
+<div class="container">
+    {{if editable:}}
+        {{=form}}
+    {{pass}}        
+</div>
+{{else:}}
+{{=msg}}
+{{pass}}

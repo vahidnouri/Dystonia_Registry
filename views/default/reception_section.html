@@ -1,0 +1,232 @@
+{{extend 'layout.html'}}
+{{if msg==None:}}
+<div class="container">
+{{=form.custom.begin}}
+    <div class="row justify-content-center">
+        <h3>
+            اطلاعات بیمار
+        </h3>
+    </div>
+    {{for f in form.fields[1:]:}}
+        <div class="row mb-2">
+            <div class="col-md-3">
+                {{=form.custom.label[f]}}
+            </div>
+            <div class="col-md-9">
+                {{=form.custom.widget[f]}}
+            </div>
+        </div>
+    {{pass}}
+
+   
+{{if editable:}}
+    {{=form.custom.submit}}
+{{pass}}
+{{=form.custom.end}}
+</div>
+{{else:}}
+{{=msg}}
+{{pass}}
+
+<script type="text/javascript"></script>
+
+<script>
+
+window.history.forward();
+
+if($('#reception_section_fr_4_1').prop('value') == 'بلی')
+            $('#reception_section_fr_4_2').show();
+       else $('#reception_section_fr_4_2').hide();
+       $('#reception_section_fr_4_1').change(function(){
+            if($('#reception_section_fr_4_1').prop('value') == 'بلی')
+                $('#reception_section_fr_4_2').show();
+            else $('#reception_section_fr_4_2').hide();});
+        
+        if($('#reception_section_fr_5_1').prop('value') == 'بلی')
+            $('#reception_section_fr_5_2').show();
+       else $('#reception_section_fr_5_2').hide();
+       $('#reception_section_fr_5_1').change(function(){
+            if($('#reception_section_fr_5_1').prop('value') == 'بلی')
+                $('#reception_section_fr_5_2').show();
+            else $('#reception_section_fr_5_2').hide();});
+
+        if($('#reception_section_fr_6_1').prop('value') == 'بلی')
+            $('#reception_section_fr_6_2').show();
+       else $('#reception_section_fr_6_2').hide();
+       $('#reception_section_fr_6_1').change(function(){
+            if($('#reception_section_fr_6_1').prop('value') == 'بلی')
+                $('#reception_section_fr_6_2').show();
+            else $('#reception_section_fr_6_2').hide();});
+
+        if($('#reception_section_fr_7_1').prop('value') == 'بلی')
+            $('#reception_section_fr_7_2').show();
+       else $('#reception_section_fr_7_2').hide();
+       $('#reception_section_fr_7_1').change(function(){
+            if($('#reception_section_fr_7_1').prop('value') == 'بلی')
+                $('#reception_section_fr_7_2').show();
+            else $('#reception_section_fr_7_2').hide();});
+
+        if($('#reception_section_fr_8_1').prop('value') == 'بلی')
+            $('#reception_section_fr_8_2').show();
+       else $('#reception_section_fr_8_2').hide();
+       $('#reception_section_fr_8_1').change(function(){
+            if($('#reception_section_fr_8_1').prop('value') == 'بلی')
+                $('#reception_section_fr_8_2').show();
+            else $('#reception_section_fr_8_2').hide();});    
+
+        if($('#reception_section_fr_9_1').prop('value') == 'بلی')
+            $('#reception_section_fr_9_2').show();
+       else $('#reception_section_fr_9_2').hide();
+       $('#reception_section_fr_9_1').change(function(){
+            if($('#reception_section_fr_9_1').prop('value') == 'بلی')
+                $('#reception_section_fr_9_2').show();
+            else $('#reception_section_fr_9_2').hide();});  
+
+        if($('#reception_section_fr_10_1').prop('value') == 'بلی')
+            $('#reception_section_fr_10_2').show();
+       else $('#reception_section_fr_10_2').hide();
+       $('#reception_section_fr_10_1').change(function(){
+            if($('#reception_section_fr_10_1').prop('value') == 'بلی')
+                $('#reception_section_fr_10_2').show();
+            else $('#reception_section_fr_10_2').hide();});    
+
+        if($('#reception_section_fr_11_1').prop('value') == 'بلی')
+            $('#reception_section_fr_11_2').show();
+       else $('#reception_section_fr_11_2').hide();
+       $('#reception_section_fr_11_1').change(function(){
+            if($('#reception_section_fr_11_1').prop('value') == 'بلی')
+                $('#reception_section_fr_11_2').show();
+            else $('#reception_section_fr_11_2').hide();});    
+
+        if($('#reception_section_fr_12_1').prop('value') == 'بلی')
+            $('#reception_section_fr_12_2').show();
+       else $('#reception_section_fr_12_2').hide();
+       $('#reception_section_fr_12_1').change(function(){
+            if($('#reception_section_fr_12_1').prop('value') == 'بلی')
+                $('#reception_section_fr_12_2').show();
+            else $('#reception_section_fr_12_2').hide();});  
+
+        if($('#reception_section_fr_13_1').prop('value') == 'بلی'){
+            $('#reception_section_fr_13_2').show();
+            $('#reception_section_fr_13_3').show();
+            }
+       else {
+            $('#reception_section_fr_13_2').hide();
+            $('#reception_section_fr_13_3').hide();   
+            }    
+       $('#reception_section_fr_13_1').change(function(){
+            if($('#reception_section_fr_13_1').prop('value') == 'بلی'){
+                $('#reception_section_fr_13_2').show();
+                $('#reception_section_fr_13_3').show();
+            }
+            else {
+                   $('#reception_section_fr_13_2').hide();
+                   $('#reception_section_fr_13_3').hide();   
+            }
+            });
+
+        if($('#reception_section_fr_14_1').prop('value') == 'بلی'){
+            $('#reception_section_fr_14_2').show();
+            $('#reception_section_fr_14_3').show();
+            }
+       else {
+            $('#reception_section_fr_14_2').hide();
+            $('#reception_section_fr_14_3').hide();   
+            }    
+       $('#reception_section_fr_14_1').change(function(){
+            if($('#reception_section_fr_14_1').prop('value') == 'بلی'){
+                $('#reception_section_fr_14_2').show();
+                $('#reception_section_fr_14_3').show();
+            }
+            else {
+                   $('#reception_section_fr_14_2').hide();
+                   $('#reception_section_fr_14_3').hide();   
+            }
+            });   
+
+        if($('#reception_section_fr_15_1').prop('value') == 'بلی'){
+            $('#reception_section_fr_15_2').show();
+            $('#reception_section_fr_15_3').show();
+            }
+       else {
+            $('#reception_section_fr_15_2').hide();
+            $('#reception_section_fr_15_3').hide();   
+            }    
+       $('#reception_section_fr_15_1').change(function(){
+            if($('#reception_section_fr_15_1').prop('value') == 'بلی'){
+                $('#reception_section_fr_15_2').show();
+                $('#reception_section_fr_15_3').show();
+            }
+            else {
+                   $('#reception_section_fr_15_2').hide();
+                   $('#reception_section_fr_15_3').hide();   
+            }
+            });   
+
+        if($('#reception_section_fr_15_1').prop('value') == 'بلی'){
+            $('#reception_section_fr_15_2').show();
+            $('#reception_section_fr_15_3').show();
+            }
+       else {
+            $('#reception_section_fr_15_2').hide();
+            $('#reception_section_fr_15_3').hide();   
+            }    
+       $('#reception_section_fr_15_1').change(function(){
+            if($('#reception_section_fr_15_1').prop('value') == 'بلی'){
+                $('#reception_section_fr_15_2').show();
+                $('#reception_section_fr_15_3').show();
+            }
+            else {
+                   $('#reception_section_fr_15_2').hide();
+                   $('#reception_section_fr_15_3').hide();   
+            }
+            });
+
+        if($('#reception_section_fr_16_1').prop('value') == 'بلی'){
+            $('#reception_section_fr_16_2').show();
+            $('#reception_section_fr_16_3').show();
+            }
+       else {
+            $('#reception_section_fr_16_2').hide();
+            $('#reception_section_fr_16_3').hide();   
+            }    
+       $('#reception_section_fr_16_1').change(function(){
+            if($('#reception_section_fr_16_1').prop('value') == 'بلی'){
+                $('#reception_section_fr_16_2').show();
+                $('#reception_section_fr_16_3').show();
+            }
+            else {
+                   $('#reception_section_fr_16_2').hide();
+                   $('#reception_section_fr_16_3').hide();   
+            }
+           
+
+            });
+
+        if($('#reception_section_fr_17').prop('value') == 'بلی'){
+            $('#reception_section_check_id_code').show();
+            $('#reception_section_check_name').show();
+            }
+       else {
+            $('#reception_section_check_id_code').hide();
+            $('#reception_section_check_name').hide();   
+            }    
+       $('#reception_section_fr_17').change(function(){
+            if($('#reception_section_fr_17').prop('value') == 'بلی'){
+                $('#reception_section_check_id_code').show();
+                $('#reception_section_check_name').show();
+            }
+            else {
+                   $('#reception_section_check_id_code').hide();
+                   $('#reception_section_check_name').hide();   
+            }           
+            });
+        if($('#reception_section_sr_jobc').prop('value') == 'سایر')
+            $('#reception_section_other_fields').show();
+       else $('#reception_section_other_fields').hide();
+       $('#reception_section_sr_jobc').change(function(){
+            if($('#reception_section_sr_jobc').prop('value') == 'سایر')
+                $('#reception_section_other_fields').show();
+            else $('#reception_section_other_fields').hide();});
+
+        </script>
